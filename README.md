@@ -1,7 +1,7 @@
 
 # Movie Club Rankings App
 
-This is a fun, interactive app where you can rank your favorite movies. It allows users to:
+This is an interactive webapp for our movie club to rank the 100+ movies that have been watched. It allows users to:
 - Drag and drop movies to rank them
 - Submit their rankings
 - Load previously saved rankings
