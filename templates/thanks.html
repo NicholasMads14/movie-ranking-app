@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thank You!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0d47a1, #000000);
+            color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .thankyou-container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #90caf9;
+            animation: popIn 1s ease-out;
+        }
+
+        .icon.pop {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #90caf9;
+            animation: popAndGlow 1s ease-in-out infinite alternate;
+            text-shadow: 0 0 10px #90caf9, 0 0 20px #0d47a1;
+        }
+
+        @keyframes popAndGlow {
+            0% { transform: scale(1); text-shadow: 0 0 10px #90caf9, 0 0 20px #0d47a1; }
+            50% { transform: scale(1.2); text-shadow: 0 0 15px #ffffff, 0 0 30px #0d47a1; }
+            100% { transform: scale(1); text-shadow: 0 0 10px #90caf9, 0 0 20px #0d47a1; }
+        }
+
+        p {
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0d47a1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="thankyou-container">
+        <div class="icon pop">💥</div>
+        <h1>Thanks, {{ username }}!</h1>
+        <p>Your rankings have been recorded successfully.</p>
+        <a href="/">Rank Again</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        confetti({
+            particleCount: 1200,
+            spread: 360,
+            startVelocity: 40,
+            origin: { y: 0.5 },
+            colors: ['#ff9800', '#f44336', '#ffeb3b', '#ff5722', '#ffc107']
+        });
+    </script>
+</body>
+</html>
