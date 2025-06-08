@@ -16,8 +16,8 @@ The app is built with Flask and uses pandas for data handling. Frontend uses HTM
 ```
 movie_ranking_app/
 ├── templates/            # HTML templates
-│   ├── index.html        # Main ranking interface
-│   └── thanks.html       # Thank you page
+    ├── index.html        # Main ranking interface
+    └── thanks.html       # Thank you page
 ├── user_rankings/        # Folder with each user's rankings (XLSX)
 ├── .gitignore            # Ignore venv and other unneeded files
 ├── README.md             # Project description
