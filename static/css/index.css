@@ -1,0 +1,131 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0d47a1, #000000);
+  color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  text-align: center;
+  color: #90caf9;
+  margin-bottom: 40px;
+  font-size: 1.8em;
+}
+
+label {
+  display: block;
+  text-align: left;
+  max-width: 315px;
+  margin:0 auto 8px;
+  font-weight: bold;
+  color: #90caf9;
+}
+
+input[type="text"] {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  margin: 0 auto 20px;
+  border: none;
+  border-radius: 5px;
+  background: #222;
+  color: #f0f0f0;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+ul#movie-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  column-count: 4;
+  column-gap: 20px;
+}
+
+li.movie-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin-bottom: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  cursor: grab;
+  transition: background 0.2s, transform 0.2s;
+  break-inside: avoid;
+}
+
+li.movie-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.02);
+}
+
+.rank-number {
+  width: 38px;
+  font-weight: bold;
+  color: #90caf9;
+}
+
+.movie-title {
+  flex-grow: 1;
+  font-size: 0.95em;
+  word-break: break-word;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: #0d47a1;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background: #1565c0;
+  transform: scale(1.03);
+}
+
+@media (max-width: 1024px) {
+  ul#movie-list { column-count: 3; }
+}
+
+@media (max-width: 768px) {
+  ul#movie-list { column-count: 2; }
+}
+
+@media (max-width: 480px) {
+  ul#movie-list { column-count: 1; }
+}
+
+.error-message {
+  text-align: center;
+  color: #ff6f61;
+  margin-top: 10px;
+  font-weight: bold;
+}
