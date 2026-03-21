@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { signOut } from 'aws-amplify/auth'
 import { useAppData } from '../hooks/useAppData'
 import TierScreen from './TierScreen'
+import FineTuneScreen from './FineTuneScreen'
 
 export default function MainApp({ user }) {
   const [screen, setScreen] = useState('tier')
@@ -31,7 +32,7 @@ export default function MainApp({ user }) {
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       <nav className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
-        <span className="text-sm text-gray-400">Hey, {user.username}</span>
+        <span className="text-sm text-gray-400">Hey, {user.username.charAt(0).toUpperCase() + user.username.slice(1)}!</span>
         <div className="flex gap-2">
           <button
             onClick={() => setScreen('tier')}
@@ -62,14 +63,21 @@ export default function MainApp({ user }) {
 
       <main className="p-4">
         {screen === 'tier' && (
-        <TierScreen
+          <TierScreen
             movies={movies}
             rankings={rankings}
             setRankings={setRankings}
             userID={user.username}
-        />
+          />
         )}
-        {screen === 'finetune' && <p className="text-gray-400">Fine-tuning screen coming soon</p>}
+        {screen === 'finetune' && (
+          <FineTuneScreen
+            movies={movies}
+            rankings={rankings}
+            setRankings={setRankings}
+            userID={user.username}
+          />
+        )}
         {screen === 'others' && <p className="text-gray-400">View others coming soon</p>}
       </main>
     </div>
