@@ -1,16 +1,41 @@
-# React + Vite
+# Movie Ranking App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack serverless web app for a 6-person movie club to rank and compare 120+ films with a tier-based ranking system optimized for mobile.
 
-Currently, two official plugins are available:
+## Stack
+React · Tailwind CSS · Vite · AWS Lambda · DynamoDB · Cognito · API Gateway · S3 · CloudFront · Route 53 · ACM · GitHub Actions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Architecture
+- **Frontend:** React SPA hosted on S3, delivered via CloudFront CDN
+- **Auth:** Cognito User Pool (admin-provisioned accounts, no self-signup)
+- **API:** HTTP API Gateway with Cognito JWT authorization
+- **Backend:** Node.js Lambda functions
+- **Database:** DynamoDB (on-demand billing)
+- **CI/CD:** GitHub Actions — builds and deploys both environments on push to main
 
-## React Compiler
+## UX approach
+- **Tier-first ranking:** Users sort movies into broad buckets first (Loved it / Liked it / It's fine / Didn't like it / Haven't seen it), then fine-tune order within each tier
+- **Mobile:** One movie at a time with big tap targets during tiering. Single-column searchable list with up/down controls during fine-tuning
+- **Desktop:** Same tier flow plus drag-and-drop reordering within tiers
+- **View others:** Tier grid showing all members' tiers for each movie at a glance
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Data model
+Each user's ranking is stored as a single DynamoDB Map item — one read and one write per save regardless of collection size.
+```json
+{
+  "userId": "nick",
+  "rankings": {
+    "movie_001": { "tier": "loved", "rank": 1 },
+    "movie_002": { "tier": "liked", "rank": 3 }
+  }
+}
+```
 
-## Expanding the ESLint configuration
+## Environments
+| | URL | Purpose |
+|---|---|---|
+| Production | xxxxxxxxxx.nicholasmadson.dev | Private — friends only |
+| Demo | mra-demo.nicholasmadson.dev | Public — portfolio |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Local setup
+_Coming soon_
