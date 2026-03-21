@@ -3,10 +3,12 @@ import { signOut } from 'aws-amplify/auth'
 import { useAppData } from '../hooks/useAppData'
 import TierScreen from './TierScreen'
 import FineTuneScreen from './FineTuneScreen'
+import OthersScreen from './OthersScreen'
+import AdminAddMovie from './AdminAddMovie'
 
 export default function MainApp({ user }) {
   const [screen, setScreen] = useState('tier')
-  const { movies, rankings, setRankings, loading, error } = useAppData(user.username)
+  const { movies, setMovies, rankings, setRankings, loading, error } = useAppData(user.username)
 
   const handleSignOut = async () => {
     await signOut()
@@ -31,8 +33,10 @@ export default function MainApp({ user }) {
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
-      <nav className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
-        <span className="text-sm text-gray-400">Hey, {user.username.charAt(0).toUpperCase() + user.username.slice(1)}!</span>
+      <nav className="flex items-center justify-between px-4 py-3 border-b border-gray-800 sticky top-0 z-10 bg-gray-950">
+        <span className="text-sm text-gray-400">
+          Hey, {user.username.charAt(0).toUpperCase() + user.username.slice(1)}!
+        </span>
         <div className="flex gap-2">
           <button
             onClick={() => setScreen('tier')}
@@ -63,12 +67,20 @@ export default function MainApp({ user }) {
 
       <main className="p-4">
         {screen === 'tier' && (
-          <TierScreen
-            movies={movies}
-            rankings={rankings}
-            setRankings={setRankings}
-            userID={user.username}
-          />
+          <>
+            <TierScreen
+              movies={movies}
+              rankings={rankings}
+              setRankings={setRankings}
+              userID={user.username}
+            />
+            <AdminAddMovie
+              movies={movies}
+              setMovies={setMovies}
+              setRankings={setRankings}
+              userID={user.username}
+            />
+          </>
         )}
         {screen === 'finetune' && (
           <FineTuneScreen
@@ -78,7 +90,12 @@ export default function MainApp({ user }) {
             userID={user.username}
           />
         )}
-        {screen === 'others' && <p className="text-gray-400">View others coming soon</p>}
+        {screen === 'others' && (
+          <OthersScreen
+            movies={movies}
+            userID={user.username}
+          />
+        )}
       </main>
     </div>
   )

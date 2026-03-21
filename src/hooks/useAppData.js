@@ -47,7 +47,7 @@ export function useAppData(userID) {
     fetchData()
   }, [userID])
 
-  return { movies, rankings, setRankings, loading, error }
+  return { movies, setMovies, rankings, setRankings, loading, error }
 }
 
 export { authHeaders }
