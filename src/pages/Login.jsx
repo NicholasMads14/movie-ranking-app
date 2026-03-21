@@ -21,9 +21,9 @@ export default function Login({ onLogin }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <h1 className="text-2xl font-bold text-white text-center mb-8">
+    <div className="bg-gray-950 px-4 flex flex-col" style={{ minHeight: '100dvh' }}>
+      <div className="w-full max-w-sm mx-auto pt-20 flex flex-col gap-4">
+        <h1 className="text-2xl font-bold text-white text-center mb-4">
           Movie Club
         </h1>
         <div className="bg-gray-900 rounded-xl p-6 flex flex-col gap-4">
@@ -32,9 +32,12 @@ export default function Login({ onLogin }) {
             placeholder="Username"
             value={username}
             onChange={e => setUsername(e.target.value)}
+            returnKeyType="next"
+            onKeyDown={e => e.key === 'Enter' && document.getElementById('password-input').focus()}
             className="bg-gray-800 text-white rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
+            id="password-input"
             type="password"
             placeholder="Password"
             value={password}
@@ -53,6 +56,21 @@ export default function Login({ onLogin }) {
             {loading ? 'Signing in...' : 'Sign in'}
           </button>
         </div>
+      </div>
+
+      <div className="mt-auto pb-8 flex flex-col items-center gap-2">
+        <a
+          href="https://nicholasmadson.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-700 text-xs hover:text-gray-500 transition-colors"
+        >
+          nicholasmadson.dev
+        </a>
+        <br></br>
+        <p className="text-gray-800 text-xs tracking-widest uppercase">
+          React · AWS Lambda · DynamoDB · Cognito · CloudFront
+        </p>
       </div>
     </div>
   )
