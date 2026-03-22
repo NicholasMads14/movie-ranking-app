@@ -23,9 +23,12 @@ export default function Login({ onLogin }) {
   return (
     <div className="bg-gray-950 px-4 flex flex-col" style={{ minHeight: '100dvh' }}>
       <div className="w-full max-w-sm mx-auto pt-20 flex flex-col gap-4">
-        <h1 className="text-2xl font-bold text-white text-center mb-4">
-          Movie Club
-        </h1>
+        <div className="flex flex-col items-center gap-2 mb-4">
+            <img src="/pony.png" alt="" className="w-24 h-24 object-contain" />
+            <h1 className="text-2xl font-bold text-white text-center">
+                Movie Club Rankings
+            </h1>
+        </div>
         <div className="bg-gray-900 rounded-xl p-6 flex flex-col gap-4">
           <input
             type="text"

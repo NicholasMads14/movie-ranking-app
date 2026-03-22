@@ -40,15 +40,15 @@ function SortableMovie({ movie, saving, accent }) {
     <div
       ref={setNodeRef}
       style={{ ...style, borderColor: accent + '40' }}
-      className="flex items-center gap-3 bg-gray-900 border rounded-xl px-4 py-1"
+      className="flex items-center gap-2 bg-gray-900 border rounded-lg px-3 py-2 md:px-2 md:py-1"
     >
       <span className="text-gray-600 text-xs w-5 text-right flex-shrink-0">{movie.rank}</span>
-      <span className="text-white text-sm flex-1">{movie.title}</span>
+      <span className="text-white text-sm md:text-xs flex-1 truncate">{movie.title}</span>
       <div
         {...attributes}
         {...listeners}
-        className="text-gray-600 hover:text-gray-400 cursor-grab active:cursor-grabbing touch-none ml-2 px-3 py-2 -mr-2"
-        style={{ fontSize: '18px', letterSpacing: '2px' }}
+        className="text-gray-600 hover:text-gray-400 cursor-grab active:cursor-grabbing touch-none ml-2 px-3 py-2 md:px-1 md:py-1 -mr-2"
+        style={{ fontSize: '14px', letterSpacing: '1px' }}
       >
         ⠿
       </div>
@@ -124,7 +124,7 @@ export default function FineTuneScreen({ movies, rankings, setRankings, userID }
   }
 
   return (
-    <div className="max-w-md mx-auto flex flex-col gap-6 py-4">
+    <div className="flex flex-col gap-3 py-2">
 
       {saving && (
         <div
@@ -147,47 +147,52 @@ export default function FineTuneScreen({ movies, rankings, setRankings, userID }
         </div>
       )}
 
-      <input
-        type="text"
-        placeholder="Search movies..."
-        value={search}
-        onChange={e => setSearch(e.target.value)}
-        className="w-full bg-gray-900 border border-gray-800 text-white rounded-xl px-4 py-3 text-sm outline-none focus:border-gray-600 transition-colors"
-      />
+      <div className="flex justify-center">
+        <input
+          type="text"
+          placeholder="Search movies..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          className="w-full max-w-xs bg-gray-900 border border-gray-800 text-white rounded-xl px-4 py-2 text-sm outline-none focus:border-gray-600 transition-colors"
+        />
+      </div>
 
-      {TIER_ORDER.map(tier => {
-        const tierMovies = getTierMovies(tier)
-        if (tierMovies.length === 0) return null
-        const { label, accent } = TIER_LABELS[tier]
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+        {TIER_ORDER.map(tier => {
+          const tierMovies = getTierMovies(tier)
+          if (tierMovies.length === 0) return null
+          const { label, accent } = TIER_LABELS[tier]
 
-        return (
-          <div key={tier} className="flex flex-col gap-2">
-            <div className="flex items-center gap-2 px-1">
-              <div className="w-2 h-2 rounded-full" style={{ background: accent }} />
-              <span className="text-xs text-gray-500 uppercase tracking-widest">{label}</span>
-            </div>
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={(e) => handleDragEnd(e, tier)}
-            >
-              <SortableContext
-                items={tierMovies.map(m => m.movieID)}
-                strategy={verticalListSortingStrategy}
+          return (
+            <div key={tier} className="flex flex-col gap-1.5">
+              <div className="flex items-center gap-2 px-1 mb-1">
+                <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: accent }} />
+                <span className="text-xs text-gray-500 uppercase tracking-widest truncate">{label}</span>
+                <span className="text-xs text-gray-700 ml-auto flex-shrink-0">{tierMovies.length}</span>
+              </div>
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={(e) => handleDragEnd(e, tier)}
               >
-                {tierMovies.map((movie) => (
-                  <SortableMovie
-                    key={movie.movieID}
-                    movie={movie}
-                    saving={saving}
-                    accent={accent}
-                  />
-                ))}
-              </SortableContext>
-            </DndContext>
-          </div>
-        )
-      })}
+                <SortableContext
+                  items={tierMovies.map(m => m.movieID)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  {tierMovies.map((movie) => (
+                    <SortableMovie
+                      key={movie.movieID}
+                      movie={movie}
+                      saving={saving}
+                      accent={accent}
+                    />
+                  ))}
+                </SortableContext>
+              </DndContext>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

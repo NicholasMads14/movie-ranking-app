@@ -13,14 +13,13 @@ const TIER_LABELS = {
 }
 
 const TIER_ORDER = ['loved', 'liked', 'fine', 'disliked', 'unseen']
-const USERS = ['nick', 'malena', 'astraea', 'alex', 'brandon', 'bowling']
+const ALL_USERS = ['nick', 'malena', 'astraea', 'alex', 'brandon', 'bowling']
 
 function getAbsoluteRank(userRankings, movieID) {
   if (!userRankings[movieID]) return null
   const { tier, rank } = userRankings[movieID]
   const tierIdx = TIER_ORDER.indexOf(tier)
   if (tierIdx === -1) return null
-
   let offset = 0
   for (let i = 0; i < tierIdx; i++) {
     offset += Object.values(userRankings).filter(r => r.tier === TIER_ORDER[i]).length
@@ -33,6 +32,8 @@ export default function OthersScreen({ movies, userID }) {
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [sortBy, setSortBy] = useState('title')
+
+  const USERS = [userID, ...ALL_USERS.filter(u => u !== userID)]
 
   useEffect(() => {
     async function fetchAll() {
@@ -68,9 +69,8 @@ export default function OthersScreen({ movies, userID }) {
     .filter(m => m.title.toLowerCase().includes(search.toLowerCase()))
     .sort((a, b) => {
       if (sortBy === 'title') return a.title.localeCompare(b.title)
-      const userRankings = rankingsByUser[sortBy]
-      const aRank = getAbsoluteRank(userRankings, a.movieID)
-      const bRank = getAbsoluteRank(userRankings, b.movieID)
+      const aRank = getAbsoluteRank(rankingsByUser[sortBy], a.movieID)
+      const bRank = getAbsoluteRank(rankingsByUser[sortBy], b.movieID)
       if (!aRank && !bRank) return 0
       if (!aRank) return 1
       if (!bRank) return -1
@@ -79,36 +79,62 @@ export default function OthersScreen({ movies, userID }) {
 
   return (
     <div className="flex flex-col gap-4 py-4 px-2">
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex items-center">
+        <div className="flex-1" />
         <input
           type="text"
           placeholder="Search movies..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="flex-1 min-w-0 bg-gray-900 border border-gray-800 text-white rounded-xl px-4 py-2 text-sm outline-none focus:border-gray-600 transition-colors"
+          className="bg-gray-900 border border-gray-800 text-white rounded-xl px-4 py-2 text-sm outline-none focus:border-gray-600 transition-colors flex-1 mx-4"
         />
-        <select
-          value={sortBy}
-          onChange={e => setSortBy(e.target.value)}
-          className="bg-gray-900 border border-gray-800 text-gray-400 rounded-xl px-3 py-2 text-sm outline-none"
-        >
-          <option value="title">Sort by title</option>
-          {USERS.map(u => (
-            <option key={u} value={u}>
-              Sort by {u.charAt(0).toUpperCase() + u.slice(1)}
-            </option>
-          ))}
-        </select>
+        <div className="flex-1 flex justify-end">
+          <select
+            value={sortBy}
+            onChange={e => setSortBy(e.target.value)}
+            className="bg-gray-900 border border-gray-800 text-gray-400 rounded-xl px-3 py-2 text-sm outline-none"
+          >
+            <option value="title">Sort by title</option>
+            {USERS.map(u => (
+              <option key={u} value={u}>
+                Sort by {u.charAt(0).toUpperCase() + u.slice(1)}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="overflow-x-auto">
         <table className="w-full text-sm border-collapse">
           <thead>
             <tr>
-              <th className="text-left text-xs text-gray-600 uppercase tracking-widest py-2 pr-4 font-normal min-w-40">Movie</th>
+              <th
+                className="text-left py-2 pr-4 font-normal min-w-40 cursor-pointer select-none"
+                onClick={() => setSortBy('title')}
+              >
+                <span
+                  className="text-xs uppercase tracking-widest transition-colors"
+                  style={{ color: sortBy === 'title' ? '#3b82f6' : '#4b5563' }}
+                >
+                  Movie
+                </span>
+              </th>
               {USERS.map(u => (
-                <th key={u} className="text-xs text-gray-600 uppercase tracking-widest py-2 px-2 font-normal text-center min-w-24">
-                  {u.charAt(0).toUpperCase() + u.slice(1)}
+                <th
+                  key={u}
+                  className="py-2 px-2 font-normal text-center min-w-24 cursor-pointer select-none"
+                  onClick={() => setSortBy(u)}
+                >
+                  <span
+                    className="text-xs uppercase tracking-widest transition-colors"
+                    style={{
+                      color: sortBy === u ? '#3b82f6' : '#4b5563',
+                      borderBottom: sortBy === u ? '1px solid #3b82f6' : '1px solid transparent',
+                      paddingBottom: '2px',
+                    }}
+                  >
+                    {u.charAt(0).toUpperCase() + u.slice(1)}
+                  </span>
                 </th>
               ))}
             </tr>
