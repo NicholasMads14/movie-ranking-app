@@ -3,16 +3,18 @@ import { authHeaders } from '../hooks/useAppData'
 
 const API_URL = import.meta.env.VITE_API_URL
 
+const TIER_ORDER = ['loved', 'liked', 'fine', 'badfun', 'disliked', 'hated', 'unseen']
 const TIER_LABELS = {
   loved: { label: 'Loved', accent: '#10b981' },
   liked: { label: 'Liked', accent: '#3b82f6' },
   fine: { label: 'Fine', accent: '#a855f7' },
+  badfun: { label: 'Bad, but fun', accent: '#ec4899' },
   disliked: { label: 'Disliked', accent: '#ef4444' },
+  hated: { label: "Fuckin' hated", accent: '#f97316' },
   unseen: { label: 'Unseen', accent: '#6b7280' },
   unranked: { label: '—', accent: '#374151' },
 }
 
-const TIER_ORDER = ['loved', 'liked', 'fine', 'disliked', 'unseen']
 const ALL_USERS = ['nick', 'malena', 'astraea', 'alex', 'brandon', 'bowling']
 
 function getAbsoluteRank(userRankings, movieID) {

@@ -18,12 +18,14 @@ import { CSS } from '@dnd-kit/utilities'
 
 const API_URL = import.meta.env.VITE_API_URL
 
-const TIER_ORDER = ['loved', 'liked', 'fine', 'disliked', 'unseen']
+const TIER_ORDER = ['loved', 'liked', 'fine', 'badfun', 'disliked', 'hated', 'unseen']
 const TIER_LABELS = {
   loved: { label: 'Loved it', accent: '#10b981' },
   liked: { label: 'Liked it', accent: '#3b82f6' },
   fine: { label: "It's fine", accent: '#a855f7' },
+  badfun: { label: 'Bad, but fun', accent: '#ec4899' },
   disliked: { label: "Didn't like it", accent: '#ef4444' },
+  hated: { label: "Fuckin' hated it", accent: '#f97316' },
   unseen: { label: "Haven't seen it", accent: '#6b7280' },
 }
 
@@ -47,10 +49,16 @@ function SortableMovie({ movie, saving, accent }) {
       <div
         {...attributes}
         {...listeners}
-        className="text-gray-600 hover:text-gray-400 cursor-grab active:cursor-grabbing touch-none ml-2 px-3 py-2 md:px-1 md:py-1 -mr-2"
-        style={{ fontSize: '14px', letterSpacing: '1px' }}
+        className="text-gray-600 hover:text-gray-400 cursor-grab active:cursor-grabbing touch-none ml-2 -mr-1 flex flex-col gap-1 p-2"
       >
-        ⠿
+        <div className="flex gap-1">
+          <div className="w-1 h-1 rounded-full bg-current" />
+          <div className="w-1 h-1 rounded-full bg-current" />
+        </div>
+        <div className="flex gap-1">
+          <div className="w-1 h-1 rounded-full bg-current" />
+          <div className="w-1 h-1 rounded-full bg-current" />
+        </div>
       </div>
     </div>
   )
@@ -157,10 +165,10 @@ export default function FineTuneScreen({ movies, rankings, setRankings, userID }
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
         {TIER_ORDER.map(tier => {
           const tierMovies = getTierMovies(tier)
-          if (tierMovies.length === 0) return null
+          // if (tierMovies.length === 0) return null
           const { label, accent } = TIER_LABELS[tier]
 
           return (
