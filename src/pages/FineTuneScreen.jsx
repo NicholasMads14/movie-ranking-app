@@ -17,6 +17,7 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 
 const API_URL = import.meta.env.VITE_API_URL
+const isDemo = import.meta.env.VITE_ENV === 'demo'
 
 const TIER_ORDER = ['loved', 'liked', 'fine', 'badfun', 'disliked', 'hated', 'unseen']
 const TIER_LABELS = {
@@ -25,7 +26,7 @@ const TIER_LABELS = {
   fine: { label: "It's fine", accent: '#a855f7' },
   badfun: { label: 'Bad, but fun', accent: '#ec4899' },
   disliked: { label: "Didn't like it", accent: '#ef4444' },
-  hated: { label: "Fuckin' hated it", accent: '#f97316' },
+  hated: { label: isDemo ? 'Hated it' : "Fuckin' hated it", accent: '#f97316' },
   unseen: { label: "Haven't seen it", accent: '#6b7280' },
 }
 

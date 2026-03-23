@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { fetchAuthSession } from 'aws-amplify/auth'
 
 const API_URL = import.meta.env.VITE_API_URL
+const isDemo = import.meta.env.VITE_ENV === 'demo'
 
 async function authHeaders() {
   const session = await fetchAuthSession()
@@ -34,8 +35,17 @@ export function useAppData(userID) {
 
         setMovies(moviesData)
 
-        const myRankings = rankingsData.find(r => r.userID === userID)
-        setRankings(myRankings?.rankings || {})
+        if (isDemo && userID === 'guest') {
+          setRankings({})
+          await fetch(`${API_URL}/rankings`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ userID: 'guest', rankings: {} }),
+          })
+        } else {
+          const myRankings = rankingsData.find(r => r.userID === userID)
+          setRankings(myRankings?.rankings || {})
+        }
       } catch (err) {
         console.error(err)
         setError('Failed to load data')

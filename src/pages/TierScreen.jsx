@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { authHeaders } from '../hooks/useAppData'
 
 const API_URL = import.meta.env.VITE_API_URL
+const isDemo = import.meta.env.VITE_ENV === 'demo'
 
 const TIERS = [
   { value: 'loved', label: 'Loved it', accent: '#10b981' },
@@ -9,7 +10,7 @@ const TIERS = [
   { value: 'fine', label: "It's fine", accent: '#a855f7' },
   { value: 'badfun', label: 'Bad, but fun', accent: '#ec4899' },
   { value: 'disliked', label: "Didn't like it", accent: '#ef4444' },
-  { value: 'hated', label: "Fuckin' hated it", accent: '#f97316' },
+  { value: 'hated', label: isDemo ? 'Hated it' : "Fuckin' hated it", accent: '#f97316' },
   { value: 'unseen', label: "Haven't seen it", accent: '#6b7280' },
 ]
 
