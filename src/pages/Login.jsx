@@ -44,11 +44,14 @@ export default function Login({ onLogin }) {
             <img src="/pony.png" alt="" className="w-24 h-24 object-contain" />
           )}
           <h1 className="text-2xl font-bold text-white text-center">
-            {isDemo ? 'Movie Ranking App' : 'Movie Club Rankings'}
+            {isDemo ? 'Movie Ranking App (Demo)' : 'Movie Club Rankings'}
           </h1>
           {isDemo && (
             <p className="text-gray-500 text-sm text-center">
-              Rank 30 movies across 7 tiers. See how your taste compares to the galaxy's most opinionated characters.
+              <br></br>
+              Rank 30 films across 7 tiers. 
+              Fine-tune the order. 
+              See how your tastes compare to others.
             </p>
           )}
         </div>

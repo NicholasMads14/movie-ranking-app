@@ -83,6 +83,7 @@ export default function TierScreen({ movies, rankings, setRankings, userID }) {
             onChange={e => setReRankSearch(e.target.value)}
             className="w-full bg-gray-900 border border-gray-800 text-white rounded-xl px-4 py-3 text-sm outline-none focus:border-gray-600 transition-colors"
           />
+          <p className="text-gray-600 text-s text-center">Head over to <span className="text-gray-400">Reorder</span> to fine-tune your rankings.</p>
           {reRankSearch && (
             <div className="flex flex-col gap-2">
               {filteredMovies.map(m => {

@@ -4,7 +4,7 @@ import { authHeaders } from '../hooks/useAppData'
 const API_URL = import.meta.env.VITE_API_URL
 const isDemo = import.meta.env.VITE_ENV === 'demo'
 const ALL_USERS = isDemo
-  ? ['luke', 'han', 'leia', 'anakin', 'jabba']
+  ? ['roy', 'leon', 'rachael', 'deckard', 'pris']
   : ['nick', 'malena', 'astraea', 'alex', 'brandon', 'bowling']
 
 const TIER_ORDER = ['loved', 'liked', 'fine', 'badfun', 'disliked', 'hated', 'unseen']
@@ -14,7 +14,7 @@ const TIER_LABELS = {
   fine: { label: 'Fine', accent: '#a855f7' },
   badfun: { label: 'Bad, but fun', accent: '#ec4899' },
   disliked: { label: 'Disliked', accent: '#ef4444' },
-  hated: { label: "Fuckin' hated", accent: '#f97316' },
+  hated: { label: "Hated", accent: '#f97316' },
   unseen: { label: 'Unseen', accent: '#6b7280' },
   unranked: { label: '—', accent: '#374151' },
 }
