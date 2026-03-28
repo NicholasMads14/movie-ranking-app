@@ -91,7 +91,7 @@ export default function AdminAddMovie({ movies, setMovies, setRankings, userID }
           value={title}
           onChange={e => setTitle(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handleAdd()}
-          className="flex-1 bg-gray-900 border border-gray-800 text-white rounded-xl px-4 py-2 text-sm outline-none focus:border-gray-600 transition-colors"
+          className="flex-1 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 rounded-xl px-4 py-2 text-sm outline-none focus:border-gray-400 dark:focus:border-gray-600 transition-colors"
         />
         <button
           onClick={handleAdd}
@@ -104,7 +104,7 @@ export default function AdminAddMovie({ movies, setMovies, setRankings, userID }
 
       <button
         onClick={() => setShowRemove(!showRemove)}
-        className="text-xs text-gray-600 hover:text-gray-400 text-left px-1 transition-colors"
+        className="text-xs text-gray-500 hover:text-gray-700 dark:hover:text-gray-400 text-left px-1 transition-colors"
       >
         {showRemove ? '▲ Hide remove' : '▼ Remove a movie'}
       </button>
@@ -116,15 +116,15 @@ export default function AdminAddMovie({ movies, setMovies, setRankings, userID }
             placeholder="Search to remove..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full bg-gray-900 border border-gray-800 text-white rounded-xl px-4 py-2 text-sm outline-none focus:border-gray-600 transition-colors"
+            className="w-full bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 rounded-xl px-4 py-2 text-sm outline-none focus:border-gray-400 dark:focus:border-gray-600 transition-colors"
           />
           <div className="flex flex-col gap-1 max-h-48 overflow-y-auto">
             {filteredMovies.map(m => (
               <div
                 key={m.movieID}
-                className="flex items-center justify-between bg-gray-900 border border-gray-800 rounded-xl px-4 py-2"
+                className="flex items-center justify-between bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-2"
               >
-                <span className="text-white text-xs flex-1">{m.title}</span>
+                <span className="text-gray-900 dark:text-white text-xs flex-1">{m.title}</span>
                 <button
                   onClick={() => handleRemove(m.movieID, m.title)}
                   disabled={removing === m.movieID}

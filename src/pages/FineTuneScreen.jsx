@@ -43,14 +43,14 @@ function SortableMovie({ movie, saving, accent }) {
     <div
       ref={setNodeRef}
       style={{ ...style, borderColor: accent + '40' }}
-      className="flex items-center gap-2 bg-gray-900 border rounded-lg px-3 py-2 md:px-2 md:py-1"
+      className="flex items-center gap-2 bg-gray-100 dark:bg-gray-900 border rounded-lg px-3 py-2 md:px-2 md:py-1"
     >
-      <span className="text-gray-600 text-xs w-5 text-right flex-shrink-0">{movie.rank}</span>
-      <span className="text-white text-sm md:text-xs flex-1 truncate">{movie.title}</span>
+      <span className="text-gray-400 dark:text-gray-600 text-xs w-5 text-right flex-shrink-0">{movie.rank}</span>
+      <span className="text-gray-900 dark:text-white text-sm md:text-xs flex-1 truncate">{movie.title}</span>
       <div
         {...attributes}
         {...listeners}
-        className="text-gray-600 hover:text-gray-400 cursor-grab active:cursor-grabbing touch-none ml-2 -mr-1 flex flex-col gap-1 p-2"
+        className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400 cursor-grab active:cursor-grabbing touch-none ml-2 -mr-1 flex flex-col gap-1 p-2"
       >
         <div className="flex gap-1">
           <div className="w-1 h-1 rounded-full bg-current" />
@@ -126,7 +126,7 @@ export default function FineTuneScreen({ movies, rankings, setRankings, userID }
   if (Object.keys(rankings).length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-96 gap-3">
-        <p className="text-xl font-bold text-white">Nothing to reorder yet.</p>
+        <p className="text-xl font-bold text-gray-900 dark:text-white">Nothing to reorder yet.</p>
         <p className="text-gray-500 text-sm">Head to Rank to start tiering your movies.</p>
       </div>
     )
@@ -142,15 +142,13 @@ export default function FineTuneScreen({ movies, rankings, setRankings, userID }
             bottom: '1.5rem',
             left: '50%',
             transform: 'translateX(-50%)',
-            background: '#1f2937',
-            color: '#9ca3af',
             fontSize: '11px',
             padding: '6px 14px',
             borderRadius: '999px',
-            border: '0.5px solid #374151',
             pointerEvents: 'none',
             zIndex: 50,
           }}
+          className="bg-gray-200 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-700"
         >
           Saving...
         </div>
@@ -162,14 +160,13 @@ export default function FineTuneScreen({ movies, rankings, setRankings, userID }
           placeholder="Search movies..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="w-full max-w-xs bg-gray-900 border border-gray-800 text-white rounded-xl px-4 py-2 text-sm outline-none focus:border-gray-600 transition-colors"
+          className="w-full max-w-xs bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white rounded-xl px-4 py-2 text-sm outline-none focus:border-gray-400 dark:focus:border-gray-600 transition-colors placeholder-gray-400 dark:placeholder-gray-600"
         />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
         {TIER_ORDER.map(tier => {
           const tierMovies = getTierMovies(tier)
-          // if (tierMovies.length === 0) return null
           const { label, accent } = TIER_LABELS[tier]
 
           return (
@@ -177,7 +174,7 @@ export default function FineTuneScreen({ movies, rankings, setRankings, userID }
               <div className="flex items-center gap-2 px-1 mb-1">
                 <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: accent }} />
                 <span className="text-xs text-gray-500 uppercase tracking-widest truncate">{label}</span>
-                <span className="text-xs text-gray-700 ml-auto flex-shrink-0">{tierMovies.length}</span>
+                <span className="text-xs text-gray-400 dark:text-gray-700 ml-auto flex-shrink-0">{tierMovies.length}</span>
               </div>
               <DndContext
                 sensors={sensors}

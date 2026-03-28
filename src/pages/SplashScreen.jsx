@@ -19,16 +19,16 @@ export default function SplashScreen({ username }) {
   const pun = useState(() => PUNS[Math.floor(Math.random() * PUNS.length)])[0]
 
   return (
-    <div className="min-h-screen bg-gray-950 flex flex-col items-center justify-center gap-4 px-4">
+    <div className="min-h-screen bg-white dark:bg-gray-950 flex flex-col items-center justify-center gap-4 px-4">
       <img src="/pony.png" alt="" className="w-20 h-20 object-contain opacity-80" />
-      <p className="text-white text-2xl font-bold text-center">{pun}</p>
-      <p className="text-gray-600 text-sm">
+      <p className="text-gray-900 dark:text-white text-2xl font-bold text-center">{pun}</p>
+      <p className="text-gray-500 dark:text-gray-600 text-sm">
         Welcome, {username.charAt(0).toUpperCase() + username.slice(1)}
       </p>
       <div className="flex gap-1 mt-2">
-        <div className="w-1.5 h-1.5 rounded-full bg-gray-700 animate-bounce" style={{ animationDelay: '0ms' }} />
-        <div className="w-1.5 h-1.5 rounded-full bg-gray-700 animate-bounce" style={{ animationDelay: '150ms' }} />
-        <div className="w-1.5 h-1.5 rounded-full bg-gray-700 animate-bounce" style={{ animationDelay: '300ms' }} />
+        <div className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-700 animate-bounce" style={{ animationDelay: '0ms' }} />
+        <div className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-700 animate-bounce" style={{ animationDelay: '150ms' }} />
+        <div className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-700 animate-bounce" style={{ animationDelay: '300ms' }} />
       </div>
     </div>
   )

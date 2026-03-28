@@ -90,13 +90,13 @@ export default function OthersScreen({ movies, userID }) {
           placeholder="Search movies..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="bg-gray-900 border border-gray-800 text-white rounded-xl px-4 py-2 text-sm outline-none focus:border-gray-600 transition-colors flex-1 mx-4"
+          className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white rounded-xl px-4 py-2 text-sm outline-none focus:border-gray-400 dark:focus:border-gray-600 transition-colors flex-1 mx-4 placeholder-gray-400 dark:placeholder-gray-600"
         />
         <div className="flex-1 flex justify-end">
           <select
             value={sortBy}
             onChange={e => setSortBy(e.target.value)}
-            className="bg-gray-900 border border-gray-800 text-gray-400 rounded-xl px-3 py-2 text-sm outline-none"
+            className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-500 dark:text-gray-400 rounded-xl px-3 py-2 text-sm outline-none"
           >
             <option value="title">Sort by title</option>
             {USERS.map(u => (
@@ -118,7 +118,7 @@ export default function OthersScreen({ movies, userID }) {
               >
                 <span
                   className="text-xs uppercase tracking-widest transition-colors"
-                  style={{ color: sortBy === 'title' ? '#3b82f6' : '#4b5563' }}
+                  style={{ color: sortBy === 'title' ? '#3b82f6' : '#6b7280' }}
                 >
                   Movie
                 </span>
@@ -132,7 +132,7 @@ export default function OthersScreen({ movies, userID }) {
                   <span
                     className="text-xs uppercase tracking-widest transition-colors"
                     style={{
-                      color: sortBy === u ? '#3b82f6' : '#4b5563',
+                      color: sortBy === u ? '#3b82f6' : '#6b7280',
                       borderBottom: sortBy === u ? '1px solid #3b82f6' : '1px solid transparent',
                       paddingBottom: '2px',
                     }}
@@ -147,9 +147,9 @@ export default function OthersScreen({ movies, userID }) {
             {filtered.map((movie, idx) => (
               <tr
                 key={movie.movieID}
-                className={idx % 2 === 0 ? 'bg-gray-950' : 'bg-gray-900/30'}
+                className={idx % 2 === 0 ? 'bg-white dark:bg-gray-950' : 'bg-gray-50 dark:bg-gray-900/30'}
               >
-                <td className="py-2 pr-4 text-white text-xs">{movie.title}</td>
+                <td className="py-2 pr-4 text-gray-900 dark:text-white text-xs">{movie.title}</td>
                 {USERS.map(u => {
                   const r = rankingsByUser[u][movie.movieID]
                   const tier = r?.tier || 'unranked'
