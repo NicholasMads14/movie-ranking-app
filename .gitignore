@@ -169,3 +169,6 @@ dist-ssr
 .env.demo
 .env.local
 .env.*.local
+
+# Documents
+.docx
